@@ -21,8 +21,7 @@ class GameObject {
     return [x, y];
   }
   setPosition(x, y) {
-    const clamp = (v) => Math.max(1, Math.min(31, v));
-    this.#position = [clamp(x), clamp(y)];
+    this.#position = [x, y];
   }
 }
 class Food extends GameObject {
@@ -36,13 +35,17 @@ class Snake extends GameObject {
 
   constructor() {
     super();
-    this.#body.push(this.position())
+    this.#body.push(this.position());
   }
   setVelocity(key) {
-    if (key.key === "ArrowLeft") this.#velocity = [0, -1];
-    if (key.key === "ArrowRight") this.#velocity = [0, 1];
-    if (key.key === "ArrowUp") this.#velocity = [-1, 0];
-    if (key.key === "ArrowDown") this.#velocity = [1, 0];
+    if (key.key === "ArrowLeft" && this.#velocity[1] != 1)
+      this.#velocity = [0, -1];
+    if (key.key === "ArrowRight" && this.#velocity[1] != -1)
+      this.#velocity = [0, 1];
+    if (key.key === "ArrowUp" && this.#velocity[0] != 1)
+      this.#velocity = [-1, 0];
+    if (key.key === "ArrowDown" && this.#velocity[0] != -1)
+      this.#velocity = [1, 0];
   }
   grow(coordinate) {
     this.#body.push(coordinate);
@@ -59,34 +62,69 @@ class Snake extends GameObject {
   updatePosition() {
     const [x, y] = this.#body[0];
     const [vx, vy] = this.#velocity;
-    this.#body[0] = [x+vx,y+vy]
-    for(let i = this.#body.length -1; i>0; i--) {
-      this.#body[i] = this.#body[i-1]
+    for (let i = this.#body.length - 1; i > 0; i--) {
+      this.#body[i] = this.#body[i - 1];
     }
+    this.#body[0] = [x + vx, y + vy];
   }
 }
-
+let gameOver = false;
 const playBoard = document.querySelector(".play-board");
+const scoreEl = document.querySelector(".score");
+const highScoreEl = document.querySelector(".high-score");
 
 let food = new Food();
 let snake = new Snake();
+let score = 0;
+let highScore = localStorage.getItem("high-score") || 0;
 
 const initGame = () => {
+  if (gameOver) {
+    handleGameOver();
+  }
   let htmlMarkup = `<div class="food" style="grid-area: ${food.getX()} / ${food.getY()}"></div>`;
   if (snake.getX() === food.getX() && snake.getY() === food.getY()) {
     snake.grow([food.getX(), food.getY()]);
     food.setRandomPosition();
+    score++;
+    highScore = score >= highScore ? score : highScore;
+    localStorage.setItem("high-score", highScore);
+    scoreEl.innerText = `Score ${score}`;
+    highScoreEl.innerText = `High-Score ${highScore}`;
   }
-  for (let i in snake.getBody()) {
+  snake.updatePosition();
+
+  if (
+    snake.getX() <= 0 ||
+    snake.getX() > 60 ||
+    snake.getY() <= 0 ||
+    snake.getY() > 60
+  ) {
+    gameOver = true;
+  }
+  for (let i = 0; i < snake.getBody().length; i++) {
     htmlMarkup += `<div class="snake body" style="grid-area: ${snake.getBody()[i][0]} / ${snake.getBody()[i][1]}"></div>`;
+    if (
+      i !== 0 &&
+      snake.getBody()[0][1] === snake.getBody()[i][1] &&
+      snake.getBody()[0][0] === snake.getBody()[i][0]
+    ) {
+      gameOver = true;
+    }
   }
   playBoard.innerHTML = htmlMarkup;
 };
 
 const intervalID = setInterval(() => {
   initGame();
-  snake.updatePosition();
 }, 125);
+
 document.addEventListener("keydown", (e) => {
   snake.setVelocity(e);
 });
+
+function handleGameOver() {
+  clearInterval(intervalID);
+  alert("Game Over");
+  location.reload();
+}
