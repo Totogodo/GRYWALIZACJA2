@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>(G)RYWALIZACJA - Global Assistance</title>
+    <link rel="stylesheet" href="styles.css">
+    
+</head>
+<body>
+    <h1><img src="img/logo.png" alt="Grywalizacja"></h1>
+    <div class="buttons">
+        <button id="btn_moto" onclick="showDepartment('Moto', 'btn_moto')">
+            <img src="img/btn_moto.png" alt="Moto" class="button-image">
+        </button>
+        <button id="btn_home" onclick="showDepartment('Home', 'btn_home')">
+            <img src="img/btn_home.png" alt="Home" class="button-image">
+        </button>
+        <button id="btn_travel" onclick="showDepartment('Travel', 'btn_travel')">
+            <img src="img/btn_travel.png" alt="Travel" class="button-image">
+        </button>
+        <button id="btn_zdrowie" onclick="showDepartment('Zdrowie', 'btn_zdrowie')">
+            <img src="img/btn_zdrowie.png" alt="Zdrowie" class="button-image">
+        </button>
+        <button id="btn_oc" onclick="showDepartment('OC', 'btn_oc')">
+            <img src="img/btn_oc.png" alt="Wynajmy OC" class="button-image">
+        </button>
+    </div>
+    <div class="chart-container">
+    <div class="chart-wrapper">
+        <canvas id="barChart"></canvas>
+        <div class="arrow arrow-left">&lt;</div>
+        <div class="arrow arrow-right">&gt;</div>
+    </div>
+</div>
+<a href="/game/index.html"><img class="arcade-machine" alt="arcade-machine"></a>
+    <div class="pixel-audio">
+        <audio id="audioPlayer" controls autoplay loop>
+            <source src="audio/song.mp3" type="audio/mpeg">
+            Twoja przeglądarka nie obsługuje tagu audio.
+        </audio>
+        <button class="play">GRAJ</button>
+        <button class="pause">PAUZA</button>
+        <button class="stop">STOP</button>
+        <div class="volume-bar">
+            <label for="volume-slider" class="volume-label"></label>
+            <input type="range" class="volume-slider" min="0" max="1" step="0.01" value="0.5">
+        </div>
+    </div>
+    <div class="countdown-timer-container">
+        <div class="countdown-title">GAME OVER ZA:</div>
+        <div class="countdown-timer" id="countdownTimer"></div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // NIE ZAPOMNIEĆ ZMIENIĆ DATY!!!
+            const countdownDate = new Date("2025-10-20T23:59:59").getTime();
+            function updateTimer() {
+                const now = new Date().getTime();
+                const distance = countdownDate - now;
+
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                document.getElementById("countdownTimer").innerHTML =
+                    days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
+
+                if (distance < 0) {
+                    clearInterval(countdownFunction);
+                    document.getElementById("countdownTimer").innerHTML = "Gejm Ower!";
+                }
+            }
+            updateTimer();
+            const countdownFunction = setInterval(updateTimer, 1000);
+        });
+    </script>
+</body>
+</html>

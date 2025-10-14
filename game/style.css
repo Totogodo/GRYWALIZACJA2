@@ -1,0 +1,80 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Open Sans" sans-serif;
+}
+
+@view-transition {
+    navigation: auto;
+}
+
+.back-btn {
+    position: fixed;
+    top: 20vmin;
+    right: 30vmin;
+    padding: 0.5rem 1.8rem;
+    background: #391f44a8;
+    color: #fca020;
+    border: 0.3rem dashed #ffdd9c;
+    font-size: 1.5rem;
+    text-decoration: none;
+}
+
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-image: url('../bga.gif');
+    background-position: center;
+    background-size: cover;
+    /* background: hsl(240, 28%, 25%); */
+}
+
+.wrapper {
+    width: 65vmin;
+    height: 70vmin;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    background-color: #391f44;
+}
+
+.monitor {
+    min-width: 1000px;
+    min-height: 800px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    background-color: #391f44;
+
+    border-radius: 80px;
+}
+
+.game-details {
+    color: white;
+    font-size: 1rem;
+    font-weight: 400;
+    display: flex;
+    padding-bottom: 1rem;
+    justify-content: space-between;
+}
+
+.play-board {
+    border: 1px solid #ffdd9c;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template: repeat(60, 1fr) / repeat(60, 1fr);
+}
+
+.food {
+    background-color: bisque;
+}
+
+.snake {
+    background-color: #fca020;
+}
