@@ -73,6 +73,7 @@ const playBoard = document.querySelector(".play-board");
 const scoreEl = document.querySelector(".score");
 const highScoreEl = document.querySelector(".high-score");
 
+let moveLocked = false;
 let food = new Food();
 let snake = new Snake();
 let score = 0;
@@ -82,16 +83,19 @@ const initGame = () => {
   if (gameOver) {
     handleGameOver();
   }
+  moveLocked = false;
   let htmlMarkup = `<div class="food" style="grid-area: ${food.getX()} / ${food.getY()}"></div>`;
-  if (snake.getX() === food.getX() && snake.getY() === food.getY()) {
-    snake.grow([food.getX(), food.getY()]);
+ if (snake.getX() === food.getX() && snake.getY() === food.getY()) {
+  snake.grow([food.getX(), food.getY()]);
+  do {
     food.setRandomPosition();
-    score++;
-    highScore = score >= highScore ? score : highScore;
-    localStorage.setItem("high-score", highScore);
-    scoreEl.innerText = `Score ${score}`;
-    highScoreEl.innerText = `High-Score ${highScore}`;
-  }
+  } while (snake.getBody().some(segment => segment[0] === food.getX() && segment[1] === food.getY()));
+  score++;
+  highScore = score >= highScore ? score : highScore;
+  localStorage.setItem("high-score", highScore);
+  scoreEl.innerText = `Score ${score}`;
+  highScoreEl.innerText = `High-Score ${highScore}`;
+}
   snake.updatePosition();
 
   if (
@@ -114,13 +118,14 @@ const initGame = () => {
   }
   playBoard.innerHTML = htmlMarkup;
 };
-
 const intervalID = setInterval(() => {
   initGame();
 }, 125);
 
 document.addEventListener("keydown", (e) => {
+ if (moveLocked) return;
   snake.setVelocity(e);
+  moveLocked = true;
 });
 
 function handleGameOver() {
