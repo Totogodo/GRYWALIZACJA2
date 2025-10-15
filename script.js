@@ -1,9 +1,5 @@
-const leftArrow = document.querySelector(".arrow-left");
-const rightArrow = document.querySelector(".arrow-right");
-const chartContainer = document.getElementById("chart-container");
-const visibleEmployees = 10; // Liczba pracowników wyświetlanych na wykresie
-const shiftAmount = 10; // Liczba pozycji do przesunięcia przy kliknięciu strzałki
 const data = {
+  OC: { labels: ["A", "B"] },
   Moto: {
     labels: [
       "Jan Kowalski",
@@ -135,6 +131,33 @@ const data = {
       10, 15, 8, 12, 6, 18, 7, 14, 9, 16, 5, 13, 11, 17, 4, 19, 3, 20, 2, 21,
     ],
   },
+  BM: {
+    labels: [
+      "Adam Kowalski",
+      "Monika Nowak",
+      "Paweł Wiśniewski",
+      "Anna Kowalczyk",
+      "Tomasz Nowak",
+      "Katarzyna Wiśniewska",
+      "Marcin Kowalski",
+      "Aleksandra Nowak",
+      "Michał Kowalczyk",
+      "Natalia Wiśniewska",
+      "Piotr Nowak",
+      "Karolina Kowalska",
+      "Łukasz Wiśniewski",
+      "Magdalena Nowak",
+      "Jakub Kowalski",
+      "Ewa Wiśniewska",
+      "Marek Nowak",
+      "Kamila Kowalczyk",
+      "Szymon Wiśniewski",
+      "Paulina Nowak",
+    ],
+    scores: [
+      10, 15, 8, 12, 6, 18, 7, 14, 9, 16, 5, 13, 11, 17, 4, 19, 3, 20, 2, 21,
+    ],
+  },
   // Dodać działy, ew zmienić konsultantów zgodnie z potrzebą (do zrobienia backend - API/CSV? )
 };
 
@@ -211,14 +234,12 @@ function updateHorizontalChart(department) {
   echartHorizontal.setOption(option);
 }
 
-// Initialize
 updateHorizontalChart(currentDepartment);
 
-// Update when department changes
 function showDepartment(department, buttonId) {
   currentDepartment = department;
   startIndex = 0;
-  updateHorizontalChart(department); // ECharts
+  updateHorizontalChart(department);
 
   const buttons = document.querySelectorAll(".buttons button");
   buttons.forEach((button) => button.classList.remove("active"));

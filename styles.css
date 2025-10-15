@@ -68,7 +68,7 @@ h1 {
 .chart-container {
     width: 100%;
     max-width: 1200px;
-    margin: auto;
+    /* margin: auto; */
     overflow: hidden;
 
 }
@@ -256,21 +256,29 @@ h1 {
 }
 
 .main-content {
+    align-items: center;
     display: flex;
+    justify-content: center;
+    gap: 3rem;
 }
 
 .arcade-machine {
-    position: absolute;
-    top: 400px;
-    left: 30px;
+    margin-top: 50px;
+
     content: url("assets/arcade.png");
     max-height: 500px;
     image-rendering: pixelated;
     image-rendering: crisp-edges;
     filter: saturate(0.6);
-    transform: rotate(-1.5deg);
+    transform: rotate(-1deg);
 }
 
 .arcade-machine:hover {
     content: url("assets/arcade-highlight.png");
+}
+
+@media only screen and (max-width: 1300px) {
+    .arcade-machine {
+        margin-left: 0;
+    }
 }
