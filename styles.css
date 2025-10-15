@@ -255,25 +255,18 @@ h1 {
 }
 
 .arcade-machine {
-    content: url("assets/arcade_pixelated.png");
+    content: url("assets/arcade.png");
     position: fixed;
     bottom: 10dvh;
     left: 5vh;
-    height: 60dvh;
+    height: 50dvh;
     image-rendering: pixelated;
     image-rendering: crisp-edges;
     filter: drop-shadow(-10px 40px 1px rgba(0, 0, 0, 0.7));
-
+    transform: rotate(-1.5deg);
+    filter: saturate(0.6);
 }
 
 .arcade-machine:hover {
-    content: url("assets/arcade_pixelated_high.png");
-    position: fixed;
-    bottom: 10dvh;
-    left: 5vh;
-    height: 60dvh;
-    image-rendering: pixelated;
-    image-rendering: crisp-edges;
-    filter: drop-shadow(-10px 40px 1px rgba(0, 0, 0, 0.7));
-
+    content: url("assets/arcade-highlight.png");
 }
