@@ -26,6 +26,7 @@ body {
     background-image: url('bga.gif');
     background-size: 100%;
     background-position: center;
+    background-attachment: fixed;
     image-rendering: pixelated;
     image-rendering: -moz-crisp-edges;
     image-rendering: -webkit-optimize-contrast;
@@ -254,17 +255,20 @@ h1 {
     font-size: 20px;
 }
 
+.main-content {
+    display: flex;
+}
+
 .arcade-machine {
+    position: absolute;
+    top: 400px;
+    left: 30px;
     content: url("assets/arcade.png");
-    position: fixed;
-    bottom: 10dvh;
-    left: 5vh;
-    height: 50dvh;
+    max-height: 500px;
     image-rendering: pixelated;
     image-rendering: crisp-edges;
-    filter: drop-shadow(-10px 40px 1px rgba(0, 0, 0, 0.7));
-    transform: rotate(-1.5deg);
     filter: saturate(0.6);
+    transform: rotate(-1.5deg);
 }
 
 .arcade-machine:hover {
