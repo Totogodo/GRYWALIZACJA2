@@ -175,21 +175,17 @@ const initGame = () => {
   }
   playBoard.innerHTML = htmlMarkup;
 };
-// const intervalID = setInterval(() => {
-//   initGame();
-// }, 125);
 
 document.addEventListener("keydown", (e) => {
   if (!intervalID && (e.code === "Space" || e.code === "Enter")) {
-    // Start the game if it's not running
-    startBtn.style.display = "none"; // hide button
+    startBtn.style.display = "none";
     moveLocked = false;
     const [vx, vy] = getInitialVelocity();
     snake.setInitialVelocity([vx, vy]);
     startGame();
   }
 
-  if (moveLocked) return; // already moving
+  if (moveLocked) return;
   snake.setVelocity(e);
   moveLocked = true;
 });

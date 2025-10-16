@@ -26,10 +26,9 @@ body {
     align-items: center;
     justify-content: center;
     height: 100vh;
-    background-image: url('../bga.gif');
+    background-image: url('assets/bga.gif');
     background-position: center;
     background-size: cover;
-    /* background: hsl(240, 28%, 25%); */
 }
 
 .start-btn {
