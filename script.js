@@ -67,8 +67,6 @@ function updateHorizontalChart(department) {
           fontFamily: "Terminus Bold",
           fontSize: 18,
         },
-
-        // showBackground: true,
       },
     ],
     grid: { left: "10%", right: "10%", top: "5%", bottom: "5%" },

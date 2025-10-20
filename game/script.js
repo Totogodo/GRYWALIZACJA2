@@ -15,8 +15,8 @@ class GameObject {
     return this.#position[1];
   }
   setRandomPosition() {
-    const x = Math.floor(Math.random() * 30) + 1;
-    const y = Math.floor(Math.random() * 30) + 1;
+    const x = Math.floor(Math.random() * 60) + 1;
+    const y = Math.floor(Math.random() * 60) + 1;
     this.#position = [x, y];
     return [x, y];
   }
@@ -123,7 +123,7 @@ function handleGameOver() {
 function startGame() {
   intervalID = setInterval(() => {
     initGame();
-  }, 125 - gameLevel(score));
+  }, 100 - gameLevel(score));
 }
 
 function getInitialVelocity() {
