@@ -38,13 +38,23 @@ class Snake extends GameObject {
     this.#body.push(this.position());
   }
   setVelocity(key) {
-    if (key.key === "ArrowLeft" && this.#velocity[1] != 1)
+    const keyBind = {
+      w: "Up",
+      s: "Down",
+      d: "Right",
+      a: "Left",
+      ArrowUp: "Up",
+      ArrowDown: "Down",
+      ArrowRight: "Right",
+      ArrowLeft: "Left",
+    };
+    if (keyBind[key.key] === "Left" && this.#velocity[1] != 1)
       this.#velocity = [0, -1];
-    if (key.key === "ArrowRight" && this.#velocity[1] != -1)
+    if (keyBind[key.key] === "Right" && this.#velocity[1] != -1)
       this.#velocity = [0, 1];
-    if (key.key === "ArrowUp" && this.#velocity[0] != 1)
+    if (keyBind[key.key] === "Up" && this.#velocity[0] != 1)
       this.#velocity = [-1, 0];
-    if (key.key === "ArrowDown" && this.#velocity[0] != -1)
+    if (keyBind[key.key] === "Down" && this.#velocity[0] != -1)
       this.#velocity = [1, 0];
   }
   setInitialVelocity([vx, vy]) {
@@ -84,6 +94,23 @@ let highScore = localStorage.getItem("high-score") || 0;
 const startBtn = document.getElementById("start-btn");
 let intervalID = null;
 
+function gameLevel(score) {
+  let number = 0;
+  if (score > 0) {
+    number = Math.floor(score / 10) * 10;
+  }
+  if (score >= 40) {
+    number = 30;
+  }
+
+  let levels = {
+    0: 0,
+    10: 25,
+    20: 50,
+    30: 75,
+  };
+  return levels[number];
+}
 renderScoreImages(score, scoreEl, "y");
 renderScoreImages(highScore, highScoreEl);
 
@@ -96,7 +123,7 @@ function handleGameOver() {
 function startGame() {
   intervalID = setInterval(() => {
     initGame();
-  }, 125);
+  }, 125 - gameLevel(score));
 }
 
 function getInitialVelocity() {
@@ -142,6 +169,7 @@ const initGame = () => {
         )
     );
     score++;
+
     highScore = score >= highScore ? score : highScore;
     localStorage.setItem("high-score", highScore);
     renderScoreImages(score, scoreEl, "y");
@@ -188,4 +216,13 @@ document.addEventListener("keydown", (e) => {
   if (moveLocked) return;
   snake.setVelocity(e);
   moveLocked = true;
+});
+startBtn.addEventListener("click", () => {
+  if (!intervalID) {
+    startBtn.style.display = "none";
+    moveLocked = false;
+    const [vx, vy] = getInitialVelocity();
+    snake.setInitialVelocity([vx, vy]);
+    startGame();
+  }
 });

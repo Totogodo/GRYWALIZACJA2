@@ -33,24 +33,21 @@ function updateHorizontalChart(department) {
   const sortedData = departmentData.slice().sort((a, b) => b.score - a.score);
 
   const option = {
-    title: { left: "center", textStyle: { color: "white" } },
+    title: { show: false },
     xAxis: {
       type: "value",
       max: Math.max(...sortedData.map((d) => d.score)),
-      axisLine: { lineStyle: { color: "white" } },
-      axisLabel: { color: "white" },
       show: false,
     },
     yAxis: {
       type: "category",
       data: sortedData.map((d) => d.name),
       inverse: true,
-      axisLine: { lineStyle: { width: false } },
       axisLabel: {
         color: "white",
         fontStyle: "normal",
         fontWeight: "bold",
-        fontFamily: "monospace",
+        fontFamily: "Terminus Bold",
         fontSize: 18,
       },
     },
@@ -59,10 +56,22 @@ function updateHorizontalChart(department) {
         type: "bar",
         data: sortedData.map((d) => d.score),
         itemStyle: { color: "rgba(255,67,109,1)" },
-        label: { show: true, position: "right", color: "white" },
+        barWidth: "80%",
+        label: { show: false, position: "right", color: "white" },
+        label: {
+          show: true,
+          color: "rgba(255,255,255,1)",
+          offset: [0, -1],
+          fontStyle: "normal",
+          fontWeight: "bold",
+          fontFamily: "Terminus Bold",
+          fontSize: 18,
+        },
+
+        // showBackground: true,
       },
     ],
-    grid: { left: "20%", right: "10%", top: "10%", bottom: "10%" },
+    grid: { left: "10%", right: "10%", top: "5%", bottom: "5%" },
   };
 
   echartHorizontal.setOption(option);

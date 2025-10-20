@@ -26,9 +26,12 @@ body {
     align-items: center;
     justify-content: center;
     height: 100vh;
-    background-image: url('assets/bga.gif');
-    background-position: center;
+    background-color: hsl(0, 0%, 80%);
+    background-image: url('../bga.gif');
     background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-blend-mode: multiply;
 }
 
 .start-btn {

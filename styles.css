@@ -18,29 +18,80 @@
     src: URL('fonts/TerminusBold.ttf') format('truetype');
 }
 
-
-body {
-    font-family: Pixelify Sans;
-    text-align: center;
-    background-color: #b9b9b9;
-    background-image: url('bga.gif');
-    background-size: 100%;
-    background-position: center;
-    background-attachment: fixed;
-    image-rendering: pixelated;
-    image-rendering: -moz-crisp-edges;
-    image-rendering: -webkit-optimize-contrast;
-    image-rendering: crisp-edges;
-    -ms-interpolation-mode: nearest-neighbor;
-
+@media only screen and (max-width: 1300px) {
+    .arcade-machine {
+        margin-left: 0;
+    }
 }
 
 @view-transition {
     navigation: auto;
 }
 
+::-webkit-scrollbar {
+    width: 11px;
+}
+
+::-webkit-scrollbar-track {
+    background: #00000000;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888888;
+}
+
+
+::-webkit-scrollbar-button:single-button {
+    display: block;
+    border-style: solid;
+    height: 13px;
+    width: 16px;
+}
+
+::-webkit-scrollbar-button:single-button:vertical:decrement {
+    border-width: 0 5px 7px 5px;
+    border-color: transparent transparent #bbbbbb transparent;
+}
+
+::-webkit-scrollbar-button:single-button:vertical:decrement:hover {
+    border-color: transparent transparent #777777 transparent;
+}
+
+::-webkit-scrollbar-button:single-button:vertical:increment {
+    border-width: 7px 5px 0 5px;
+    border-color: #bbbbbb transparent transparent transparent;
+}
+
+::-webkit-scrollbar-button:vertical:single-button:increment:hover {
+    border-color: #777777 transparent transparent transparent;
+}
+
+body {
+    font-family: Pixelify Sans;
+    text-align: center;
+    background-color: hsl(0, 0%, 80%);
+    background-image: url('bga.gif');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-blend-mode: multiply;
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+    -ms-interpolation-mode: nearest-neighbor;
+}
+
+
 h1 {
     margin-bottom: 0px;
+}
+
+.buttons {
+    padding-inline: 20vw;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .buttons button {
@@ -52,8 +103,7 @@ h1 {
 }
 
 .buttons button img {
-    width: 100%;
-    height: 100%;
+    height: 40px;
     transition: filter 0.3s ease;
 }
 
@@ -66,8 +116,8 @@ h1 {
 }
 
 .chart-container {
-    overflow: hidden;
-
+    display: block;
+    justify-items: center;
 }
 
 .chart-wrapper {
@@ -75,40 +125,26 @@ h1 {
     background: rgba(0, 0, 0, 0.75);
     border: 5px dashed #424242;
     padding-inline: 3rem;
-    overflow: hidden;
 }
 
-.arrow {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 50px;
-    height: 70px;
-    cursor: pointer;
-    background-color: rgba(255, 67, 109, 255);
+
+.arcade-machine {
+    position: fixed;
+    bottom: 5vh;
+    left: 3vw;
+    margin-top: 50px;
+    content: url("assets/arcade.png");
+    max-height: 20vw;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+    filter: saturate(0.6);
+    transform: rotate(-1deg);
     z-index: 10;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 0%;
-    font-size: 42px;
-    transition: background-color 0.3s ease;
-    border: 4px solid black;
 }
 
-.arrow:hover {
-    background-color: rgba(255, 255, 255, 1);
+.arcade-machine:hover {
+    content: url("assets/arcade-highlight.png");
 }
-
-.arrow-left {
-    left: 0;
-}
-
-.arrow-right {
-    right: 0;
-}
-
-
 
 .pixel-audio {
     background-color: #000000d2;
@@ -119,7 +155,6 @@ h1 {
     left: 2rem;
     width: 190px;
 }
-
 
 .pixel-audio button {
     border: none;
@@ -134,7 +169,6 @@ h1 {
     text-align: center;
 }
 
-
 .pixel-audio button.play {
     background-color: #ff436d;
 }
@@ -144,17 +178,13 @@ h1 {
     background-color: #636363;
 }
 
-
 .pixel-audio button.stop {
     background-color: #000000;
 }
 
-
 .pixel-audio audio {
     display: none;
 }
-
-
 
 .pixel-audio .volume-slider {
     -webkit-appearance: none;
@@ -168,14 +198,12 @@ h1 {
     position: relative;
 }
 
-
 .pixel-audio .volume-slider::-webkit-slider-runnable-track {
     width: 90%;
     height: 20px;
     background: #555;
     border-radius: 5px;
 }
-
 
 .pixel-audio .volume-slider::-webkit-slider-thumb {
     -webkit-appearance: none;
@@ -187,12 +215,10 @@ h1 {
     cursor: pointer;
 }
 
-
 .pixel-audio .volume-slider::-moz-range-progress {
     background-color: #555;
     border-radius: 0px;
 }
-
 
 .pixel-audio .volume-slider::-moz-range-thumb {
     width: 20px;
@@ -202,12 +228,10 @@ h1 {
     cursor: pointer;
 }
 
-
 .pixel-audio .volume-slider::-ms-fill-lower {
     background-color: #555;
     border-radius: 0px;
 }
-
 
 .pixel-audio .volume-slider::-ms-thumb {
     width: 20px;
@@ -216,7 +240,6 @@ h1 {
     border-radius: 0%;
     cursor: pointer;
 }
-
 
 .pixel-audio .volume-slider::before {
     content: 'GŁOŚNOŚĆ';
@@ -250,32 +273,4 @@ h1 {
 
 .countdown-timer {
     font-size: 20px;
-}
-
-.main-content {
-    align-items: center;
-    display: flex;
-    justify-content: center;
-    gap: 3rem;
-}
-
-.arcade-machine {
-    margin-top: 50px;
-
-    content: url("assets/arcade.png");
-    max-height: 500px;
-    image-rendering: pixelated;
-    image-rendering: crisp-edges;
-    filter: saturate(0.6);
-    transform: rotate(-1deg);
-}
-
-.arcade-machine:hover {
-    content: url("assets/arcade-highlight.png");
-}
-
-@media only screen and (max-width: 1300px) {
-    .arcade-machine {
-        margin-left: 0;
-    }
 }
