@@ -101,34 +101,5 @@
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
 
     <script src="script.js"></script>
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        // NIE ZAPOMNIEĆ ZMIENIĆ DATY!!!
-        const countdownDate = new Date("2025-10-20T23:59:59").getTime();
-        function updateTimer() {
-          const now = new Date().getTime();
-          const distance = countdownDate - now;
-
-          const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-          const hours = Math.floor(
-            (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-          );
-          const minutes = Math.floor(
-            (distance % (1000 * 60 * 60)) / (1000 * 60)
-          );
-          const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-          document.getElementById("countdownTimer").innerHTML =
-            days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
-
-          if (distance < 0) {
-            clearInterval(countdownFunction);
-            document.getElementById("countdownTimer").innerHTML = "Gejm Ower!";
-          }
-        }
-        updateTimer();
-        const countdownFunction = setInterval(updateTimer, 1000);
-      });
-    </script>
   </body>
 </html>
