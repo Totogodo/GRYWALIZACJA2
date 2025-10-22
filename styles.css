@@ -116,8 +116,8 @@ h1 {
 }
 
 .chart-container {
-    display: block;
-    justify-items: center;
+    display: flex;
+    justify-content: center;
 }
 
 .chart-wrapper {
