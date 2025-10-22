@@ -70,11 +70,21 @@ function startCountdown(dateString) {
   updateTimer();
   countdownInterval = setInterval(updateTimer, 1000);
 }
+
+// echart
 function updateHorizontalChart(department) {
   const departmentData = data[department];
   if (!departmentData || !Array.isArray(departmentData)) return;
 
   const sortedData = departmentData.slice().sort((a, b) => b.score - a.score);
+
+  const container = document.getElementById("echartHorizontal");
+  const barHeight = 40;
+  const minHeight = 300;
+
+  const calculatedHeight = sortedData.length * barHeight + 100;
+  container.style.height = `${Math.max(calculatedHeight, minHeight)}px`;
+  echartHorizontal.resize();
 
   const option = {
     title: { show: false },
@@ -88,20 +98,25 @@ function updateHorizontalChart(department) {
       data: sortedData.map((d) => d.name),
       inverse: true,
       axisLabel: {
+        interval: 0,
         color: "white",
         fontStyle: "normal",
         fontWeight: "bold",
         fontFamily: "Terminus Bold",
         fontSize: 18,
       },
+      axisTick: { show: false },
+      axisLine: { show: false },
+      boundaryGap: true,
     },
     series: [
       {
         type: "bar",
         data: sortedData.map((d) => d.score),
         itemStyle: { color: "rgba(255,67,109,1)" },
-        barWidth: "80%",
-        label: { show: false, position: "right", color: "white" },
+        barWidth: barHeight * 0.8,
+        barGap: 0,
+        barCategoryGap: "20%",
         label: {
           show: true,
           color: "rgba(255,255,255,1)",
@@ -113,7 +128,12 @@ function updateHorizontalChart(department) {
         },
       },
     ],
-    grid: { left: "10%", right: "10%", top: "5%", bottom: "5%" },
+    grid: {
+      left: 50,
+      right: 50,
+      top: 50,
+      bottom: 50,
+    },
   };
 
   echartHorizontal.setOption(option);
